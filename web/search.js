@@ -1,46 +1,46 @@
 function reloadTweets(map) {
-	
+
 	var bounds = map.getBounds();
-    var ne = bounds.getNorthEast();
-    var sw = bounds.getSouthWest();
+	var ne = bounds.getNorthEast();
+	var sw = bounds.getSouthWest();
 
-    var search = {
-        pre_filter: {
-            location: {
-                operator: 'gp',
-                value: [
+	var search = {
+		pre_filter: {
+			location: {
+				operator: 'gp',
+				value: [
                     [sw.lng(), ne.lat()], // upper left
-                    [ne.lng(), sw.lat()]  // lower down
+                    [ne.lng(), sw.lat()] // lower down
                 ]
-            }
-        },
-        highlight: {
-            text:{},
-            fullname: {}
-        }
-    };
+			}
+		},
+		highlight: {
+			text: {},
+			fullname: {}
+		}
+	};
 
-	var query = document.getElementById('search-form').elements['query'].value;
+	var query = document.getElementById('search-form').elements.query.value;
 
-	if(query) {
+	if (query) {
 
-		// default search
+		// phrase search
 		search.query = {
 			'*': {
 				operator: 'match',
 				value: {
-					query: query
+					query: query,
+					type: 'phrase'
 				}
 			}
 		};
 
-		// phrase search
+		// default search
 		// search.query = {
 		// 	'*': {
 		// 		operator: 'match',
 		// 		value: {
-		// 			query: query,
-		// 			type: 'phrase'
+		// 			query: query
 		// 		}
 		// 	}
 		// };
@@ -77,11 +77,11 @@ function reloadTweets(map) {
 }
 
 function initialize() {
-    document.getElementById('search-form').onsubmit = function(e) {
-        e.preventDefault();
-        reloadTweets(map);
-        return false;
-    }
+	document.getElementById('search-form').onsubmit = function(e) {
+		e.preventDefault();
+		reloadTweets(map);
+		return false;
+	};
 }
 
 window.onload = initialize;

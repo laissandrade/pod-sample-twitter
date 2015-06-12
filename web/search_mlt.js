@@ -21,7 +21,7 @@ function reloadTweets(map) {
         }
     };
 
-    var example = document.getElementById('search-form').elements['query'].value;
+    var example = document.getElementById('search-form').elements.query.value;
 
     if(example) {
         search.query = {
@@ -55,17 +55,17 @@ function reloadTweets(map) {
 }
 
 function resetExample(map, text) {
-    document.getElementById('search-form').elements['query'].value = text;
+    document.getElementById('search-form').elements.query.value = text;
     reloadTweets(map);
 }
 
 function initialize() {
-    document.getElementById('search-form').elements['query'].disabled = true;
+    document.getElementById('search-form').elements.query.disabled = true;
     document.getElementById('search-form').onsubmit = function(e) {
         e.preventDefault();
         reloadTweets(map);
         return false;
-    }
+    };
 
     google.maps.event.addListener(map, 'rightclick', function() {
         resetExample(map, null);
